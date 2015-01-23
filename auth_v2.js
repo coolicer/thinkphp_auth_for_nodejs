@@ -43,7 +43,7 @@ Auth.getAuthList = function(uid,type){
         "status": 1
     }
     // 获取rules
-    var rules = getFromDb()
+    var rules = //getFromDb()
 
     // 循环规则，判断结果
     authList = []
