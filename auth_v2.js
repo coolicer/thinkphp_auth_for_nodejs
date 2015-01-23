@@ -9,11 +9,12 @@ var Auth = function(){
         'AUTH_USER'         : 'users'
     }
 };
-    /**
-     * 获得权限列表
-     * @param integer uid 用户id
-     * @param integer type
-     */
+
+/**
+ * 获得权限列表
+ * @param integer uid 用户id
+ * @param integer type
+ */
 Auth.getAuthList = function(uid,type){
     var _authList = [] // 保存用户验证通过的权限列表
     var t = type.join()
@@ -26,7 +27,7 @@ Auth.getAuthList = function(uid,type){
     }
 
     // 读取用户所属的用户组
-    var groups = this.getGroups(uid)
+    var groups = Auth.getGroups(uid)
     // 保存用户所属用户组设置的所有权限规则id
     var ids = []
     groups.forEach(function(g){
@@ -68,9 +69,27 @@ Auth.getAuthList = function(uid,type){
     }
     return php.array_unique( authList )
 }
-    /**
-     * 获取用户资料，根据自己的情况读取数据库
-     */
+
+/**
+ * 根据用户id获取用户组，返回值为数组
+ * @param uid int 用户ID
+ * @reutrn array
+ */
+
+Auth.getGroups = function(uid){
+    var groups = []
+    if( php.isset(groups[uid]) return groups[uid]
+
+    // 从数据库取用户组
+    var user_groups = // getFromDb()
+     groups[uid] = user_groups ? user_groups : []
+     return groups[uid]
+}
+
+/**
+ * 获取用户资料，根据自己的情况读取数据库
+ */
+
 Auth.getUserInfo = function(uid){
     var userinfo = []
     if( !php.isset(userinfo[uid]) ){
@@ -79,15 +98,15 @@ Auth.getUserInfo = function(uid){
     return userinfo[uid]
 }
 
-    /**
-      * 检查权限
-      * @param name string|array  需要验证的规则列表,支持逗号分隔的权限规则或索引数组
-      * @param uid  int           认证用户的id
-      * @param string mode        执行check的模式
-      * @param relation string    如果为 'or' 表示满足任一条规则即通过验证;
-      *                           如果为 'and'则表示需满足所有规则才能通过验证
-      * @return boolean           通过验证返回true;失败返回false
-      */
+/**
+  * 检查权限
+  * @param name string|array  需要验证的规则列表,支持逗号分隔的权限规则或索引数组
+  * @param uid  int           认证用户的id
+  * @param string mode        执行check的模式
+  * @param relation string    如果为 'or' 表示满足任一条规则即通过验证;
+  *                           如果为 'and'则表示需满足所有规则才能通过验证
+  * @return boolean           通过验证返回true;失败返回false
+  */
 
 Auth.prototype.check = function(name,uid,type,mode,relation){
     if(type == null) type = 1
@@ -129,23 +148,7 @@ Auth.prototype.check = function(name,uid,type,mode,relation){
     return false
 };
  
-
-    /**
-     * 根据用户id获取用户组，返回值为数组
-     * @param uid int 用户ID
-     * @reutrn array
-     */
-Auth.prototype.getGroups = function(uid){
-    var groups = []
-    if( php.isset(groups[uid]) return groups[uid]
-
-    // 从数据库取用户组
-    var user_groups = // getFromDb()
-     groups[uid] = user_groups ? user_groups : []
-     return groups[uid]
-}
-
-
+// help function
 function is_string(obj){
     return Object.prototype.toString.call(obj) === '[object String]'
 }
