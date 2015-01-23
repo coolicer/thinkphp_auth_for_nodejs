@@ -5,3 +5,5 @@
 - 登录验证没有完成，只做了实时验证。登录验证只是把权限列表写在session而已。
 
 最后，如果你使用并且完善后可以提交代码。
+
+https://github.com/liu21st/thinkphp/blob/master/ThinkPHP/Library/Think/Auth.class.php
